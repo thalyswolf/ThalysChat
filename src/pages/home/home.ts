@@ -1,35 +1,46 @@
 
 import { Component,NgZone } from '@angular/core';
 import {Messages} from '../../providers/messages'
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable} from 'angularfire2';
+import { EnviarPage } from '../enviar/enviar';
+import { ConversaPage } from '../conversa/conversa';
+import { AddPage } from '../add/add';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  username='';
-  m='';
-  message=[
+  usuario='Bilbo';
+  id;
+  data;
+  contatos: FirebaseListObservable<any>;
+  constructor(public navCtrl: NavController, public sendM:Messages,public ngZone:NgZone, public angFire:AngularFire, navParams: NavParams) {
+    this.ionViewDidLoad();
+    this.id = navParams.get('user');
 
-  ];
-  messages:FirebaseListObservable<any>;
-user(user){
-  if(user==this.username){
-    return true
-  }else{
-    return false
-  }
 }
-  constructor(public navCtrl: NavController, public sendM:Messages,public ngZone:NgZone, public angFire:AngularFire) {
-    this.messages = angFire.database.list('/messages');
+enviarMensagem(){
+  this.navCtrl.push(EnviarPage)
 }
-limpar(){
-  this.sendM.save('e');
-}
-  sendMessage(){
+ionViewDidLoad() {
+  console.log('ionViewDidLoad EnviarPage');
+  this.contatos = this.angFire.database.list('/contatos');
 
-    this.messages.push(this.message)
-   //this.sendM.save(this.message);
-  }
+}
+
+verContato(contato){
+  this.navCtrl.push(ConversaPage,
+    {
+        id: this.id,
+        user1: this.usuario,
+        user2: contato
+      })
+}
+adicionar(){
+  this.navCtrl.push(AddPage)
+}
+
+
+
 }

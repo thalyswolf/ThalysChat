@@ -1,0 +1,34 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Enviar uma mensagem</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <form>
+    <ion-item>
+      <ion-label floating>
+        De
+      </ion-label>
+      <ion-input name="de" [(ngModel)]="de"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>
+        Para
+      </ion-label>
+      <ion-input name="para" [(ngModel)]="para"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>
+        Mensagem
+      </ion-label>
+      <ion-input name="mensagem" [(ngModel)]="mensagem"></ion-input>
+    </ion-item>
+    <br>
+    <button ion-button full clear (click)="enviar()">Enviar</button>
+  </form>
+</ion-content>

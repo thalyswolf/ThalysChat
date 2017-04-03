@@ -17,9 +17,25 @@ export class Messages {
     this.initialize();
   }
   private initialize(){
-   this.reference = firebase.database().ref('/messages');
+   this.reference = firebase.database().ref();
   }
-  save(messages){
-        this.reference.set(messages).key;
+
+  dest(remetente, destino, mensagem){
+    let ref = firebase.database().ref();
+    return ref.child('messages').child(remetente).child('conversas').child(destino).push().set({
+      de:remetente,
+      para: destino,
+      texto: mensagem
+    });
+  }
+  send(remetente, destino, mensagem){
+        let ref = firebase.database().ref();
+        this.dest(remetente, destino, mensagem);
+        return ref.child('messages').child(destino).child('conversas').child(remetente).push().set({
+          de:remetente,
+          para: destino,
+          texto: mensagem
+        });
+
   }
 }

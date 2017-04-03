@@ -3,13 +3,11 @@
     <ion-title>
       <ion-grid>
         <ion-row>
-          <ion-col>
-            <ion-item>
-              <ion-label floating>
-                Username
-              </ion-label>
-              <ion-input [(ngModel)]="message.username" [(ngModel)]="username"> </ion-input>
-            </ion-item>
+          <ion-col width-80>
+            {{usuario}}
+          </ion-col>
+          <ion-col width-20>
+            <button ion-button full clear (click)="adicionar()"><ion-icon full name="md-contacts" color="dark"></ion-icon></button>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -18,39 +16,14 @@
 </ion-header>
 
 <ion-content padding>
-        <button type="button" name="button" (click)="limpar()">LimparDB</button>
-  <ion-list *ngFor="let messagem of messages | async">
-    <ion-item color="dark" *ngIf="user(messagem.username)">
-      <ion-row>{{messagem.username}}</ion-row>
-      <ion-row>{{messagem.message}}</ion-row>
-    </ion-item>
-    <ion-item color="light" *ngIf="!user(messagem.username)">
-      <ion-row>{{messagem.username}}</ion-row>
-      <ion-row>{{messagem.message}}</ion-row>
 
-    </ion-item>
-  </ion-list>
-
+<ion-list full *ngFor="let contato of contatos | async">
+  <ion-item full>
+    <button ion-button full color="dark" (click)="verContato(contato.nome)">{{contato.nome}}</button>
+  </ion-item>
+</ion-list>
 </ion-content>
 <ion-footer>
-    <form>
-     <ion-grid>
-       <ion-row>
-         <ion-col>
-           <ion-item>
-             <ion-label floating>
-               Type here
-             </ion-label>
-             <ion-input name="descricao" [(ngModel)]="message.message" required></ion-input>
-           </ion-item>
-         </ion-col>
-       </ion-row>
-       <ion-row>
-         <ion-col>
-           <button ion-button full (click)="sendMessage()" color="dark">Submit</button>
-         </ion-col>
-       </ion-row>
-     </ion-grid>
-   </form>
 
+  <button ion-button clear full (click)="teste()">Enviar uma mensagem</button>
 </ion-footer>
